@@ -1,4 +1,13 @@
-public static class Common
+package com.dnavault;
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+import java.util.stream.*;
+import java.util.function.Function;
+import java.text.DecimalFormat;
+
+public class Common
 	{
 	    
 	    private Common(){}

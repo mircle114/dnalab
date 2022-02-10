@@ -1,3 +1,5 @@
+package com.dnavault;
+
 import java.awt.*;
 import javax.swing.*;
  

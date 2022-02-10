@@ -1,3 +1,5 @@
+package com.dnavault;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -10,22 +12,31 @@ public class DnaStrand
     
     public static enum CalcType 
     {
-        PERCT,HYPOT,COMPOSITE,SUM_PERCT,SUM_HYPOT,SUM_ALLT
+        PERCT,HYPOT,COMPOSITE,SINT,SUM_PERCT,SUM_HYPOT,SUM_ALLT
     }
     
     private final static int MAXVAL = 65536;
     private final static PrintStream out = System.out;
-   
+    private final static int SCALEFACTOR = 10;
+
     private Integer[] cmbo;
     private int strandIndex;
     
-    private Double percT;
-    private Double hypoT;
-    private String compositeT;
+    // Calcs
+    private double percT;
+    private double hypoT;
+    private double compositeT;
     
-    private Double sumTPercT;
-    private Double sumTHypoT;
-    private Double sumAllT;
+    private double sinT;
+    private int sinCycles;
+    private int sinPoints;
+    private double[] sinSines;
+    private int[] sinPts;
+
+    private double sumTPercT;
+    private double sumTHypoT;
+    private double sumTSinT;
+    private double sumAllT;
    
     private String strandOut;
     
@@ -43,6 +54,7 @@ public class DnaStrand
         setPercT();
         setHypoT();
         setCompositeT();
+        setSinT();
         
         setSumTPercT();
         setSumTHypoT();
@@ -51,7 +63,16 @@ public class DnaStrand
         setEncoded();
     }
     
-    
+    public double getSinT()
+    {
+       return this.sinT;
+    }
+
+    public void setSinT()
+    {
+        this.sinT = calcResult(CalcType.SINT);
+    }
+
     public String getEncoded()
     {
         return this.encoded;
@@ -61,8 +82,7 @@ public class DnaStrand
     {
         this.encoded = this.getPercT().toString();
     }
-    
-    
+        
     public Integer getZone()
     {
         return this.zone;
@@ -123,7 +143,7 @@ public class DnaStrand
         this.sumTPercT = calcResult(CalcType.SUM_PERCT);
     }
     
-    public Double getHypoT()
+    public double getHypoT()
     {
         return this.hypoT;
     }
@@ -133,7 +153,7 @@ public class DnaStrand
         this.hypoT = calcResult(CalcType.HYPOT);
     }
     
-    public Double getSumTHypoT()
+    public double getSumTHypoT()
     {
         return this.sumTHypoT;
     }
@@ -143,17 +163,17 @@ public class DnaStrand
         this.sumTHypoT = calcResult(CalcType.SUM_HYPOT);
     }
 
-    public String getCompositeT()
+    public double getCompositeT()
     {
         return this.compositeT;
     }
     
     public void setCompositeT()
     {
-        this.compositeT = calcResult(CalcType.COMPOSITE).toString();
+        this.compositeT = calcResult(CalcType.COMPOSITE);
     }
    
-    public Double getSumAllT()
+    public double getSumAllT()
     {
         return this.sumAllT;
     }
@@ -163,12 +183,12 @@ public class DnaStrand
         this.sumAllT = calcResult(CalcType.SUM_ALLT);
     }
   
-    public Double calcResult(CalcType calcType)
+    public double calcResult(CalcType calcType)
     {
-        Double result = 0.00;
-        Double percT = getPercT();
-        Double hypoT = getHypoT();
-        String compositeT = getCompositeT();
+        double result = 0.00;
+        double percT = getPercT();
+        double hypoT = getHypoT();
+        double compositeT = getCompositeT();
         
         if(calcType.equals(CalcType.HYPOT))
         {
@@ -180,34 +200,43 @@ public class DnaStrand
         }
         else if(calcType.equals(CalcType.PERCT))
         {
-            Double strandInd = Double.valueOf(getStrandIndex());
+            double strandInd = Double.valueOf(getStrandIndex());
             result =  (strandInd / MAXVAL) * 100;
         }
         else if(calcType.equals(CalcType.COMPOSITE))
         {
-            String[] justDigits = Main.Common.getStringArrayOfDigits(percT);
+            String[] justDigits = Common.getStringArrayOfDigits(percT);
             Integer[] compositeTIndexes = new Integer[] {0,1,justDigits.length-1}; 
            
-            List<String> listWithIndexSelections = Main.Common.getElementsByIndexSelection(justDigits,compositeTIndexes);
+            List<String> listWithIndexSelections = Common.getElementsByIndexSelection(justDigits,compositeTIndexes);
             String compositeTString = String.join("",listWithIndexSelections);
-            Double compositeTDouble = Double.valueOf(compositeTString);
+            double compositeTDouble = Double.valueOf(compositeTString);
             
-            Double sumOfComposite = Main.Common.getSumOfAllDigits(compositeTDouble,false);
+            double sumOfComposite = Common.getSumOfAllDigits(compositeTDouble,false);
             
             result = compositeTDouble;
         }
+        else if(calcType.equals(CalcType.SINT))
+        {
+            // TO DO ->>> MULTIPLYOR is hardcoded to 1 (###,###) is one point
+            // 
+            double radians = (Math.PI / SCALEFACTOR) * 1;
+            double sines = Math.sin(radians);
+            //double radians = (Math.PI / SCALEFACTOR) * i;
+            result = sines;
+        }
         else if(calcType.equals(CalcType.SUM_PERCT))
         {
-            result = Main.Common.getSumOfAllDigits(percT,false);
+            result = Common.getSumOfAllDigits(percT,false);
         }
         else if(calcType.equals(CalcType.SUM_HYPOT))
         {
-            result = Main.Common.getSumOfAllDigits(hypoT,false);
+            result = Common.getSumOfAllDigits(hypoT,false);
         }
         else if(calcType.equals(CalcType.SUM_ALLT))
         {
-            Double sumT1 = Main.Common.getSumOfAllDigits(percT,false);
-            Double sumT2 = Main.Common.getSumOfAllDigits(hypoT,false);
+            double sumT1 = Common.getSumOfAllDigits(percT,false);
+            double sumT2 = Common.getSumOfAllDigits(hypoT,false);
             result = sumT1 + sumT2;
         }
         

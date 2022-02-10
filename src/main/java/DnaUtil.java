@@ -1,4 +1,5 @@
-// Java program to print all combination of size r in an array of size n
+package com.dnavault;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -103,16 +104,16 @@ class DnaUtil
             int strandIdx = dnaStr.getStrandIndex();
             // PercT
             Double percT = dnaStr.getPercT();
-            String[] percTs = Main.Common.getStringArrayOfDigits(percT);
+            String[] percTs = Common.getStringArrayOfDigits(percT);
             // HypoT 
             Double hypoT = dnaStr.getHypoT();
-            String[] hypoTs = Main.Common.getStringArrayOfDigits(hypoT);
+            String[] hypoTs = Common.getStringArrayOfDigits(hypoT);
             // SumT
             Double sumT = dnaStr.getSumAllT();
             // Sum of all the digits in the array
-            Double sumDigits = Main.Common.getSumOfAllDigits(percT,false);
+            Double sumDigits = Common.getSumOfAllDigits(percT,false);
             // Composite
-            String composit = dnaStr.getCompositeT();
+            double composit = dnaStr.getCompositeT();
             
             // Add to our result list to run some tests on
             listResults.add(percT.toString());
