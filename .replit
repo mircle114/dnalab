@@ -1,2 +1,2 @@
 language = "java10"
-run = "javac -d src/main/classes src/main/java/*.java && java -classpath  src/main/classes/ com.dnavault.Drawtext"
+run = "javac -d src/main/classes src/main/java/*.java && java -classpath  src/main/classes/ com.dnavault.DnaApp"

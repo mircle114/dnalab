@@ -1,5 +1,6 @@
 package com.dnavault;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -37,7 +38,7 @@ public class DnaApp extends JComponent
   private static void loadGUIComponents()
   {
       JFrame.setDefaultLookAndFeelDecorated(true);
-      mainFrame = new JFrame("DNA|PIPELINE");
+      mainFrame = new JFrame("DNA | PIPELINE");
       mainFrame.setBackground(Color.white);
       mainFrame.setSize(500,500);
       mainFrame.pack();

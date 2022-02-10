@@ -82,3 +82,14 @@ GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("A.ttf")));
 
 */
+
+
+/* 
+
+// Use this code to help build a JOB runner
+https://www.javamex.com/tutorials/threads/invokelater.shtml
+
+
+
+
+*/
