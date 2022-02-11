@@ -1,9 +1,11 @@
 package com.dnavault;
 
-
-import java.awt.*;
+//import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.*;
+import java.awt.Color;
 import javax.swing.*;
+import java.awt.GridLayout;
 import javax.swing.border.Border;
 import java.io.*;
 import java.util.*;
@@ -23,7 +25,9 @@ public class DnaApp extends JComponent
         try
         {
           loadGUIComponents();
-          SinePixel sinePix = new SinePixel(new Dimension(100,100));
+          DnaUtil du = new DnaUtil();
+          List<DnaStrand> listDnaStrands = du.getDnaStrands();
+          SinePixel sinePix = new SinePixel(listDnaStrands,new Dimension(100,100));
           controlPanel.add(sinePix);
           
           mainFrame.pack();
@@ -39,7 +43,7 @@ public class DnaApp extends JComponent
   {
       JFrame.setDefaultLookAndFeelDecorated(true);
       mainFrame = new JFrame("DNA | PIPELINE");
-      mainFrame.setBackground(Color.white);
+      mainFrame.setBackground(Color.magenta);
       mainFrame.setSize(500,500);
       mainFrame.pack();
       mainFrame.addWindowListener(new WindowAdapter()
@@ -54,6 +58,14 @@ public class DnaApp extends JComponent
       controlPanel = new JPanel(new GridLayout(1,1));
       controlPanel.setBorder(blackline);
       
+      JButton jButton = new JButton();
+      JButton b=new JButton("Click Here");  
+      b.setBounds(0,0,95,50);  
+    mainFrame.add(b);  
+    mainFrame.setSize(400,400);  
+    //mainFrame.setLayout(null);  
+   
+
       mainFrame.add(controlPanel);
       mainFrame.setVisible(true);  
   }

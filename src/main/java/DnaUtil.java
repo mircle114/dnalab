@@ -40,6 +40,11 @@ class DnaUtil
         }
     }
 
+    // Get the list of DNA Strand objects
+    public List<DnaStrand> getDnaStrands()
+    {
+       return listDnaStrands;
+    }
 
     // Encodes the data to DNA charset      
     /*public String encode(Integer[] strand, DnaStrand.CalcType calcType)

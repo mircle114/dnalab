@@ -220,7 +220,7 @@ public class DnaStrand
         {
             // TO DO ->>> MULTIPLYOR is hardcoded to 1 (###,###) is one point
             // 
-            double radians = (Math.PI / SCALEFACTOR) * 1;
+            double radians = (Math.PI / SCALEFACTOR) * this.getPercT();
             double sines = Math.sin(radians);
             //double radians = (Math.PI / SCALEFACTOR) * i;
             result = sines;
