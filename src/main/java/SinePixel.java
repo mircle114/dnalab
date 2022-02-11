@@ -3,14 +3,15 @@ package com.dnavault;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 import java.util.function.Function;
-import java.awt.Color;
 import java.awt.Graphics;
-
+import javax.swing.border.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SinePixel extends JPanel 
@@ -32,17 +33,12 @@ public class SinePixel extends JPanel
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         int randomNum = ThreadLocalRandom.current().nextInt(0, 255 + 1);
-        
         DnaStrand dnaStrand = lstStrands.get(i);
         Double test = dnaStrand.getSumTPercT();
         System.out.printf("Test: %s \n", test);
-
-
-
         double radians = (Math.PI / SCALEFACTOR) * test;
         this.sines[i] = Math.sin(radians);
         //this.sines[i] = dnaStrand.getSinT();
-
         System.out.printf("Radians: %s | Sines: %s \n" ,dnaStrand.getSinT(), sines[i]);
 
       }
@@ -50,39 +46,19 @@ public class SinePixel extends JPanel
 
     public SinePixel(List<DnaStrand> listDnaStrands, Dimension dimensions) throws IOException
     {
-      this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-      JPanel top = new JPanel(null);
-      top.setPreferredSize(new Dimension(50,20));
-      JPanel flowPanel = new JPanel( new FlowLayout( FlowLayout.LEFT, 2, 2 ) );
-
-      this.add( top );
-      this.add(flowPanel);
-
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
-      flowPanel.add( new JButton( "x" ) );
+      Border raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+      this.setBorder(raisedetched);
 
       // Set the cycles for the sine wave
       setCycles(1,listDnaStrands);
     }
 
-    
-
     public void paintComponent(Graphics g) 
     {
-      int maxWidth = getWidth();
+      int maxWidth = 50; //getWidth();
       double hstep = (double) maxWidth / (double) points;
      
-      int maxHeight = getHeight();
+      int maxHeight = 10; //getHeight();
       pts = new int[points];
         
       

@@ -4,8 +4,12 @@ package com.dnavault;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import javax.swing.border.Border;
 import java.io.*;
 import java.util.*;
@@ -14,8 +18,7 @@ import java.util.function.Function;
 
 public class DnaApp extends JComponent
 {
-
-  private static JFrame mainFrame;
+  private static JFrame rootFrame;
   private static JPanel controlPanel;
   
   private DnaApp(){}
@@ -25,12 +28,15 @@ public class DnaApp extends JComponent
         try
         {
           loadGUIComponents();
-          DnaUtil du = new DnaUtil();
+
+         DnaUtil du = new DnaUtil();
           List<DnaStrand> listDnaStrands = du.getDnaStrands();
           SinePixel sinePix = new SinePixel(listDnaStrands,new Dimension(100,100));
-          controlPanel.add(sinePix);
           
-          mainFrame.pack();
+          controlPanel.add(sinePix);
+          controlPanel.setPreferredSize(new Dimension(25,25));
+
+          rootFrame.pack();
          
         }
         catch(IOException e)
@@ -41,33 +47,24 @@ public class DnaApp extends JComponent
 
   private static void loadGUIComponents()
   {
+      Border blackline = BorderFactory.createLineBorder(Color.PINK);
+      
+      // The ROOT frame for the entire app
       JFrame.setDefaultLookAndFeelDecorated(true);
-      mainFrame = new JFrame("DNA | PIPELINE");
-      mainFrame.setBackground(Color.magenta);
-      mainFrame.setSize(500,500);
-      mainFrame.pack();
-      mainFrame.addWindowListener(new WindowAdapter()
-      {
-        public void windowClosing(WindowEvent windowEvent)
-        {
-          System.exit(0);
-        }
-      });
-
-      Border blackline = BorderFactory.createLineBorder(Color.white);
-      controlPanel = new JPanel(new GridLayout(1,1));
+      rootFrame = new JFrame("DNA | PIPELINE");
+      rootFrame.getContentPane().setLayout(new BorderLayout());
+            
+      controlPanel = new JPanel();
+      controlPanel.setBackground(Color.yellow);
+      controlPanel.setOpaque(false);
       controlPanel.setBorder(blackline);
       
-      JButton jButton = new JButton();
-      JButton b=new JButton("Click Here");  
-      b.setBounds(0,0,95,50);  
-    mainFrame.add(b);  
-    mainFrame.setSize(400,400);  
-    //mainFrame.setLayout(null);  
-   
-
-      mainFrame.add(controlPanel);
-      mainFrame.setVisible(true);  
+      rootFrame.getContentPane().add(controlPanel);
+      rootFrame.setSize(400,400);  
+      rootFrame.setBackground(Color.magenta);
+     
+      rootFrame.setVisible(true);  
+      rootFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 }
 
