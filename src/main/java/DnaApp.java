@@ -8,6 +8,7 @@ import java.awt.Component;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.border.Border;
@@ -52,11 +53,10 @@ public class DnaApp extends JComponent
       // The ROOT frame for the entire app
       JFrame.setDefaultLookAndFeelDecorated(true);
       rootFrame = new JFrame("DNA | PIPELINE");
-      rootFrame.getContentPane().setLayout(new BorderLayout());
+     // rootFrame.getContentPane().setLayout(null);
             
-      controlPanel = new JPanel();
-      controlPanel.setBackground(Color.yellow);
-      controlPanel.setOpaque(false);
+      controlPanel = new JPanel(new BorderLayout());
+      controlPanel.setAlignmentX(Component.LEFT_ALIGNMENT);      controlPanel.setBackground(Color.white);
       controlPanel.setBorder(blackline);
       
       rootFrame.getContentPane().add(controlPanel);

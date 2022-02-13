@@ -1,6 +1,7 @@
 package com.dnavault;
 
 import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.event.*;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -26,6 +27,7 @@ public class SinePixel extends JPanel
     {
       this.cycles = cycles;
       this.points = SCALEFACTOR * cycles * 2;
+      
      // System.out.println(this.points);
       this.sines = new double[points];
       for (int i = 0; i < points; i++) 
@@ -36,29 +38,36 @@ public class SinePixel extends JPanel
         DnaStrand dnaStrand = lstStrands.get(i);
         Double test = dnaStrand.getSumTPercT();
         System.out.printf("Test: %s \n", test);
-        double radians = (Math.PI / SCALEFACTOR) * test;
+        double radians = (Math.PI / SCALEFACTOR) * randomNum;
         this.sines[i] = Math.sin(radians);
         //this.sines[i] = dnaStrand.getSinT();
-        System.out.printf("Radians: %s | Sines: %s \n" ,dnaStrand.getSinT(), sines[i]);
+        //System.out.printf("Radians: %s | Sines: %s \n" ,dnaStrand.getSinT(), sines[i]);
 
       }
     }
 
     public SinePixel(List<DnaStrand> listDnaStrands, Dimension dimensions) throws IOException
     {
+      //Border plainBorder3X = BorderFactory.createLineBorder(Color.BLUE,2);
       Border raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
       this.setBorder(raisedetched);
+      
+
+    // SpringLayout layout = new SpringLayout();
+     // this.setLayout(null);
 
       // Set the cycles for the sine wave
-      setCycles(1,listDnaStrands);
+      setCycles(3,listDnaStrands);
     }
 
     public void paintComponent(Graphics g) 
     {
-      int maxWidth = 50; //getWidth();
+      //int maxWidth = getWidth();
+      int maxWidth = 100;
       double hstep = (double) maxWidth / (double) points;
      
-      int maxHeight = 10; //getHeight();
+      //int maxHeight = getHeight();
+      int maxHeight = 15;
       pts = new int[points];
         
       
