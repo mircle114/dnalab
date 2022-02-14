@@ -32,18 +32,18 @@ public class ImageProcessing
     {
         try
         {
-          File imageFile = new File("src/main/resources/dnasnapshot.png");
+          File imageFile = new File("src/download.jpg");
           BufferedImage bufferedImage = ImageIO.read(imageFile);
           BufferedImage cropped = cropImage(bufferedImage,0, bufferedImage.getWidth()  /2,   
-           bufferedimage.getWidth() /2, bufferedimage.getHeight()/2);
+           bufferedImage.getWidth() /2, bufferedImage.getHeight()/2);
           File pathFile = new File("src/main/resources/pngimage-crop.jpg");
-          ImageIO.write(bufferedImage,"jpg", pathFile);
+          ImageIO.write(cropped,"jpg", pathFile);
 
           
         }
         catch(Exception e)
         {
-            System.out.println("ImageProcessing.main()");
+            System.out.println(e.getMessage());
         }
         
     }
