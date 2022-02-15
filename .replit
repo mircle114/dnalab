@@ -1,2 +1,2 @@
 language = "java17"
-run = "javac -d src/main/classes src/main/java/*.java && java -classpath  src/main/classes/ com.dnavault.ImageProcessing"
+run = "javac -d src/main/classes src/main/java/*.java && java -classpath  src/main/classes/ com.dnavault.ColorPicky"

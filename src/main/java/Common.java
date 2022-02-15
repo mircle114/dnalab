@@ -56,12 +56,17 @@ public class Common
         }
         
         public static List<String> getListOfDigitStrings(Double in)
-	    {
-	        String[] numberStr = getStringArrayOfDigits(in);
-	         List<String> returnList = new ArrayList<>();
-            // Copy the array of string numbers to a generic list
-            Collections.addAll(returnList, numberStr);
-	        return returnList;
-	    }
+        {
+            String[] numberStr = getStringArrayOfDigits(in);
+            List<String> returnList = new ArrayList<>();
+              // Copy the array of string numbers to a generic list
+              Collections.addAll(returnList, numberStr);
+            return returnList;
+        }
+
+        public static char ConvertIntToChar(int intToConvert)
+        {
+          return (char)(intToConvert + '0');
+        }
 	    
 	}
