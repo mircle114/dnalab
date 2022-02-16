@@ -3,6 +3,7 @@ package com.dnavault;
 import java.awt.Insets;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -23,28 +24,37 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
+import javax.swing.BorderFactory;
 
 public class ColorPicky {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) 
+  {
     new ColorPicky();
   }
 
-  public ColorPicky() {
-    EventQueue.invokeLater(new Runnable() {
+  public ColorPicky() 
+  {
+    EventQueue.invokeLater(new Runnable() 
+    {
       @Override
-      public void run() {
-        try {
+      public void run() 
+      {
+        try 
+        {
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException
             | UnsupportedLookAndFeelException ex) {
         }
 
         JFrame frame = new JFrame("Testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.add(new TestPane());
-        frame.pack();
+        frame.add(new TestPane(),BorderLayout.SOUTH);
+        frame.setSize(200, 200);
+        //frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
       }
@@ -73,26 +83,49 @@ public class ColorPicky {
       this.fileName = filename;
     }
 
+    public void setTextField(String name,int y,int x,GridBagConstraints gbc,GridBagLayout lay)
+    {
+        JTextField jt = new JTextField(name);
+        gbc.gridy = y;
+        gbc.gridx = x;
+        lay.setConstraints(jt, gbc);
+        add(jt);
+    }
+
     public TestPane() 
     {
+      // Layout manager
+      GridBagLayout gbl = new GridBagLayout();
+      this.setLayout(gbl);
+      // Constraints object for layout management
+      GridBagConstraints gbc = new GridBagConstraints();
+      // Borders
+      Border lineBorder = BorderFactory.createLineBorder(Color.black);
+      this.setBorder(lineBorder);
       
-      Container content = getContentPane();
+      
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+      setTextField("A component",0,1,gbc,gbl);
+      setTextField("B component",1,0)
 
-      JTextField labelA = new JTextField("Your A component");
-      JTextField labelB = new JTextField("Your B component");
-      JTextField labelC = new JTextField("Your C component");
+      
+      
+      JTextField labelB = new JTextField("B component");
+      JTextField labelC = new JTextField("C component");
       JTextField labelD = new JTextField("Top Right D");
 
-      JPanel north = new JPanel(new GridBagLayout());
-      GridBagConstraints gbc = new GridBagConstraints();
+      /*JPanel north = new JPanel(new GridBagLayout());
+      
       
       //gbc.weightx = 0;
-      gbc.gridx = 1;
+      gbc.gridx = 2;
+      gbc.gridy = 1;
       gbc.insets = new Insets(10, 10, 10, 10);
       
+      //gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.anchor = GridBagConstraints.WEST;
       
-      gbc.anchor = GridBagConstraints.EAST;
-     
       north.add(labelD, gbc);
 
       JPanel south = new JPanel(new GridBagLayout());
@@ -105,9 +138,9 @@ public class ColorPicky {
       south.add(labelC, gbc);
 
       setLayout(new BorderLayout());
-      content.add(north,gbc);
-      //add(north, BorderLayout.NORTH);
-      add(south, BorderLayout.SOUTH);
+      //content.add(north,gbc);
+      add(north, BorderLayout.NORTH);
+      add(south, BorderLayout.SOUTH);*/
      
      /* setLayout(new GridBagLayout());
 
