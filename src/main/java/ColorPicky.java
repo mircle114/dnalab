@@ -2,6 +2,7 @@ package com.dnavault;
 
 import java.awt.Insets;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
@@ -83,13 +84,14 @@ public class ColorPicky {
       this.fileName = filename;
     }
 
-    public void setTextField(String name,int y,int x,GridBagConstraints gbc,GridBagLayout lay)
+    public JTextField setTextField(String name,int y,int x,GridBagConstraints gbc,GridBagLayout lay)
     {
         JTextField jt = new JTextField(name);
         gbc.gridy = y;
         gbc.gridx = x;
         lay.setConstraints(jt, gbc);
         add(jt);
+        return jt;
     }
 
     public TestPane() 
@@ -97,23 +99,24 @@ public class ColorPicky {
       // Layout manager
       GridBagLayout gbl = new GridBagLayout();
       this.setLayout(gbl);
-      // Constraints object for layout management
-      GridBagConstraints gbc = new GridBagConstraints();
+      
+
+      this.setPreferredSize(new Dimension(200, 100));
+
       // Borders
       Border lineBorder = BorderFactory.createLineBorder(Color.black);
       this.setBorder(lineBorder);
-      
-      
-      gbc.fill = GridBagConstraints.HORIZONTAL;
-      gbc.anchor = GridBagConstraints.FIRST_LINE_END;
-      setTextField("A component",0,1,gbc,gbl);
-      setTextField("B component",1,0)
 
-      
-      
-      JTextField labelB = new JTextField("B component");
-      JTextField labelC = new JTextField("C component");
-      JTextField labelD = new JTextField("Top Right D");
+      // Constraints object for layout management
+      GridBagConstraints gbc = new GridBagConstraints();  
+      gbc.weightx = 1;
+      //gbc.weighty = 1;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+
+      gbc.anchor = GridBagConstraints.CENTER;
+            
+      JTextField AComponent = setTextField("A component",0,0,gbc,gbl);
+      JTextField BComponent = setTextField("B component",0,1,gbc,gbl);
 
       /*JPanel north = new JPanel(new GridBagLayout());
       
