@@ -15,12 +15,4 @@ public class DnaFileChooser extends JFileChooser
         System.out.println("Selected file: " + selectedFile.getAbsolutePath());
       }
   }
-
-  public static void main(String[] args)
-  {
-      
-  }
-
-
-
 }

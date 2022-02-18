@@ -49,7 +49,7 @@ public class DnaGridBagLayout {
             | UnsupportedLookAndFeelException ex) {
         }
 
-        JFrame frame = new JFrame("Testing");
+        JFrame frame = new JFrame("Kayla's App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.getContentPane().add(new TestPane(),BorderLayout.EAST);
@@ -85,16 +85,6 @@ public class DnaGridBagLayout {
       this.fileName = filename;
     }
 
-    public JTextField setTextField(String name,int y,int x,GridBagConstraints gbc,GridBagLayout lay)
-    {
-        JTextField jt = new JTextField(name);
-        gbc.gridy = y;
-        gbc.gridx = x;
-        lay.setConstraints(jt, gbc);
-        add(jt);
-        return jt;
-    }
-
     // Override this method to specify the panel's
     // insets (top, left, bottom, right).
     public Insets getInsets()
@@ -111,28 +101,55 @@ public class DnaGridBagLayout {
       // Plain border
       Border lineBorder = BorderFactory.createLineBorder(Color.black,2,false);
       // Round border
-      Border roundedBorder = new LineBorder(Color.RED, 2, true);
+      Border roundedBorder = BorderFactory.createLineBorder(Color.RED, 2, true);
       // Compound Border (Composite Border - really cool)
       Border compositeBorder = new CompoundBorder(lineBorder, new EmptyBorder(50,50,50,50));
       // Set the appropriate border
-      this.setBorder(compositeBorder);
+      this.setBorder(roundedBorder);
 
       // Constraints object for layout management
       GridBagConstraints gbc = new GridBagConstraints();  
-
       gbc.weightx = 1;
       gbc.weighty = 1;
-      gbc.fill = GridBagConstraints.NONE;
+      gbc.fill = GridBagConstraints.BOTH;
       gbc.anchor = GridBagConstraints.NORTH;
-            
-      JTextField AComponent = setTextField("A component",0,0,gbc,gbl);
+
+      // Examples of adding textfields
+      /*JTextField AComponent = setTextField("A component",0,0,gbc,gbl);
       JTextField BComponent = setTextField("B component",0,1,gbc,gbl);
       JTextField CComponent = setTextField("C component",0,2,gbc,gbl);
-      JTextField DComponent = setTextField("D component",1,0,gbc,gbl);
+      JTextField DComponent = setTextField("D component",1,0,gbc,gbl);*/
+
+      JButton selectFileButton = setButton("...",0,0,gbl);
+      
+      // The selected image file (using a label with setIcon)
+      labelImg = new JLabel();
+      labelImg.setBorder(roundedBorder);
+      gbc.weighty = 1;
+      gbc.weighty = 1;
+      gbc.gridx = 0;
+      gbc.gridy = 1;
+      add(labelImg, gbc);
+      labelImg.setPreferredSize(new Dimension(100,100));
+
+
+      fields = new JPanel();
+      gbc.gridx = 0;
+      gbc.gridy = 3;
+      fields.setBorder(roundedBorder);
+      red = new JTextField(4);
+      green = new JTextField(3);
+      blue = new JTextField(3);
+      fields.add(red);
+      fields.add(green);
+      fields.add(blue);
+      add(fields, gbc);
 
       this.setPreferredSize(new Dimension(300, 100));
+     
 
-      /*JPanel north = new JPanel(new GridBagLayout());
+
+       /*JPanel north = new JPanel(new GridBagLayout());
       
       
       //gbc.weightx = 0;
@@ -158,78 +175,82 @@ public class DnaGridBagLayout {
       //content.add(north,gbc);
       add(north, BorderLayout.NORTH);
       add(south, BorderLayout.SOUTH);*/
-     
-     /* setLayout(new GridBagLayout());
-
-      GridBagConstraints gbc = new GridBagConstraints();
-      // gbc.gridwidth = GridBagConstraints.REMAINDER;
-
-      buttonProperties(gbc);
-
-      // The selected image file (using a label with setIcon)
-      labelImg = new JLabel();
-      gbc.gridx = 1;
-      gbc.gridy = 0;
-      add(labelImg, gbc);
-
-      fields = new JPanel();
-      gbc.gridx = 0;
-      gbc.gridy = 1;
-      fields.setBorder(new EmptyBorder(1, 15, 15, 15));
-      red = new JTextField(4);
-      green = new JTextField(3);
-      blue = new JTextField(3);
-      fields.add(red);
-      fields.add(green);
-      fields.add(blue);
-      add(fields, gbc); */
     }
 
-    public void loadImageIcon(String filename) {
-      try {
-        if (fileName != "") {
+    public JButton setButton(String caption,int x,int y,GridBagLayout lay) 
+    {
+      selFileButton = new JButton(caption);
+
+      // Constraints object for layout management
+      GridBagConstraints gbc = new GridBagConstraints();  
+      gbc.weightx = 0;
+      gbc.weighty = 0;
+      gbc.fill = GridBagConstraints.NONE;
+      gbc.anchor = GridBagConstraints.NORTH;
+
+      gbc.gridx = x;
+      gbc.gridy = y;
+      lay.setConstraints(selFileButton, gbc);
+      add(selFileButton);
+      selFileButton.addActionListener(this);
+      return selFileButton;
+    }
+
+    public JTextField setTextField(String name,int x,int y,GridBagConstraints gbc,GridBagLayout lay)
+    {
+        JTextField jt = new JTextField(name);
+        gbc.gridy = y;
+        gbc.gridx = x;
+        lay.setConstraints(jt, gbc);
+        add(jt);
+        return jt;
+    }
+
+    public void loadImageIcon(String filename) 
+    {
+      try 
+      {
+        if (fileName != "") 
+        {
           BufferedImage img = ImageIO.read(new File(fileName));
           labelImg.setIcon(new ImageIcon(img));
-          labelImg.addMouseMotionListener(new MouseAdapter() {
+          labelImg.addMouseMotionListener(new MouseAdapter() 
+          {
             @Override
-            public void mouseMoved(MouseEvent e) {
-              try {
+            public void mouseMoved(MouseEvent e) 
+            {
+              try 
+              {
                 int packedInt = img.getRGB(e.getX(), e.getY());
                 Color color = new Color(packedInt, true);
                 fields.setBackground(color);
                 red.setText(Integer.toString(color.getRed()));
                 green.setText(Integer.toString(color.getGreen()));
                 blue.setText(Integer.toString(color.getBlue()));
-              } catch (Exception exception) {
+              } 
+              catch (Exception exception) 
+              {
 
               }
             }
           });
         }
-      } catch (IOException ex) {
+      } catch (IOException ex) 
+      {
         ex.printStackTrace();
       }
     }
 
-    public void buttonProperties(GridBagConstraints gbc) {
-      gbc.fill = GridBagConstraints.HORIZONTAL;
-      gbc.gridx = 0;
-      gbc.gridy = 0;
-      
-      selFileButton = new JButton("...");
-      selFileButton.setBounds(0,0, 15,15);
-      
-      add(selFileButton);
-      selFileButton.addActionListener(this);
-    }
-
     @Override
-    public void actionPerformed(ActionEvent e) {
-      if (selFileButton instanceof JButton) {
+    public void actionPerformed(ActionEvent e) 
+    {
+      if (selFileButton instanceof JButton) 
+      {
         DnaFileChooser dnFile = new DnaFileChooser(this);
         String selectedFileName = dnFile.getSelectedFile().getAbsolutePath();
         this.setFileName(selectedFileName);
-        if (selectedFileName != "") {
+        if (selectedFileName != "") 
+        {
           loadImageIcon(selectedFileName);
         }
       }
