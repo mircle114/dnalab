@@ -24,18 +24,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.Border;
+import javax.swing.border.*;
 import javax.swing.BorderFactory;
 
-public class ColorPicky {
+public class DnaGridBagLayout {
 
   public static void main(String[] args) 
   {
-    new ColorPicky();
+    new DnaGridBagLayout();
   }
 
-  public ColorPicky() 
+  public DnaGridBagLayout() 
   {
     EventQueue.invokeLater(new Runnable() 
     {
@@ -53,10 +52,10 @@ public class ColorPicky {
         JFrame frame = new JFrame("Testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.add(new TestPane(),BorderLayout.SOUTH);
-        frame.setSize(200, 200);
-        //frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.getContentPane().add(new TestPane(),BorderLayout.EAST);
+        frame.setPreferredSize(new Dimension(400,200));
+        frame.pack();
+        //frame.setLocationRelativeTo(null);
         frame.setVisible(true);
       }
     });
@@ -76,11 +75,13 @@ public class ColorPicky {
 
     private String fileName;
 
-    public String getFileName() {
+    public String getFileName() 
+    {
       return this.fileName;
     }
 
-    public void setFileName(String filename) {
+    public void setFileName(String filename) 
+    {
       this.fileName = filename;
     }
 
@@ -94,29 +95,42 @@ public class ColorPicky {
         return jt;
     }
 
+    // Override this method to specify the panel's
+    // insets (top, left, bottom, right).
+    public Insets getInsets()
+    {
+      return new Insets(20, 0, 0, 0);
+    }
+
     public TestPane() 
     {
       // Layout manager
       GridBagLayout gbl = new GridBagLayout();
       this.setLayout(gbl);
       
-
-      this.setPreferredSize(new Dimension(200, 100));
-
-      // Borders
-      Border lineBorder = BorderFactory.createLineBorder(Color.black);
-      this.setBorder(lineBorder);
+      // Plain border
+      Border lineBorder = BorderFactory.createLineBorder(Color.black,2,false);
+      // Round border
+      Border roundedBorder = new LineBorder(Color.RED, 2, true);
+      // Compound Border (Composite Border - really cool)
+      Border compositeBorder = new CompoundBorder(lineBorder, new EmptyBorder(50,50,50,50));
+      // Set the appropriate border
+      this.setBorder(compositeBorder);
 
       // Constraints object for layout management
       GridBagConstraints gbc = new GridBagConstraints();  
-      gbc.weightx = 1;
-      //gbc.weighty = 1;
-      gbc.fill = GridBagConstraints.HORIZONTAL;
 
-      gbc.anchor = GridBagConstraints.CENTER;
+      gbc.weightx = 1;
+      gbc.weighty = 1;
+      gbc.fill = GridBagConstraints.NONE;
+      gbc.anchor = GridBagConstraints.NORTH;
             
       JTextField AComponent = setTextField("A component",0,0,gbc,gbl);
       JTextField BComponent = setTextField("B component",0,1,gbc,gbl);
+      JTextField CComponent = setTextField("C component",0,2,gbc,gbl);
+      JTextField DComponent = setTextField("D component",1,0,gbc,gbl);
+
+      this.setPreferredSize(new Dimension(300, 100));
 
       /*JPanel north = new JPanel(new GridBagLayout());
       

@@ -1,2 +1,2 @@
 language = "java17"
-run = "javac -d src/main/classes src/main/java/*.java && java -classpath  src/main/classes/ com.dnavault.ColorPicky"
+run = "javac -d src/main/classes/ $(find . -name '*.java') && java -classpath src/main/classes/ com.dnavault.DnaGridBagLayout"
