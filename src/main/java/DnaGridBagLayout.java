@@ -53,7 +53,7 @@ public class DnaGridBagLayout {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.getContentPane().add(new TestPane(),BorderLayout.EAST);
-        frame.setPreferredSize(new Dimension(400,200));
+        frame.setPreferredSize(new Dimension(500,400));
         frame.pack();
         //frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -89,7 +89,7 @@ public class DnaGridBagLayout {
     // insets (top, left, bottom, right).
     public Insets getInsets()
     {
-      return new Insets(20, 0, 0, 0);
+      return new Insets(5,5,5,5);
     }
 
     public TestPane() 
@@ -102,18 +102,22 @@ public class DnaGridBagLayout {
       Border lineBorder = BorderFactory.createLineBorder(Color.black,2,false);
       // Round border
       Border roundedBorder = BorderFactory.createLineBorder(Color.RED, 2, true);
+      
+      // Etched Border
+      Border etchedBorder = BorderFactory.createEtchedBorder(Color.red, Color.blue);
+    
+
+      // Matte Border
+      Border  matteBorder = BorderFactory.createMatteBorder(7, 7, 7, 7, Color.black);
+      
       // Compound Border (Composite Border - really cool)
       Border compositeBorder = new CompoundBorder(lineBorder, new EmptyBorder(50,50,50,50));
       // Set the appropriate border
-      this.setBorder(roundedBorder);
+      this.setBorder(matteBorder);
 
       // Constraints object for layout management
       GridBagConstraints gbc = new GridBagConstraints();  
-      gbc.weightx = 1;
-      gbc.weighty = 1;
-      gbc.fill = GridBagConstraints.BOTH;
-      gbc.anchor = GridBagConstraints.NORTH;
-
+     
       // Examples of adding textfields
       /*JTextField AComponent = setTextField("A component",0,0,gbc,gbl);
       JTextField BComponent = setTextField("B component",0,1,gbc,gbl);
@@ -121,6 +125,12 @@ public class DnaGridBagLayout {
       JTextField DComponent = setTextField("D component",1,0,gbc,gbl);*/
 
       JButton selectFileButton = setButton("...",0,0,gbl);
+
+      gbc.weightx = 1;
+      gbc.weighty = 1;
+      gbc.fill = GridBagConstraints.VERTICAL;
+      gbc.anchor = GridBagConstraints.NORTH;
+
       
       // The selected image file (using a label with setIcon)
       labelImg = new JLabel();
@@ -130,12 +140,12 @@ public class DnaGridBagLayout {
       gbc.gridx = 0;
       gbc.gridy = 1;
       add(labelImg, gbc);
-      labelImg.setPreferredSize(new Dimension(100,100));
+      labelImg.setPreferredSize(new Dimension(200,100));
 
 
       fields = new JPanel();
       gbc.gridx = 0;
-      gbc.gridy = 3;
+      gbc.gridy = 2;
       fields.setBorder(roundedBorder);
       red = new JTextField(4);
       green = new JTextField(3);
@@ -143,7 +153,18 @@ public class DnaGridBagLayout {
       fields.add(red);
       fields.add(green);
       fields.add(blue);
+
+      gbc.gridx = 0;
+      gbc.gridy = 3;
+
+      gbc.weightx = 0;
+      gbc.weighty = 0;
+      gbc.fill = GridBagConstraints.VERTICAL;
+      gbc.anchor = GridBagConstraints.SOUTH;
+
+
       add(fields, gbc);
+      fields.setPreferredSize(new Dimension(200,35));
 
       this.setPreferredSize(new Dimension(300, 100));
      
