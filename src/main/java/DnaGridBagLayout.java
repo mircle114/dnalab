@@ -97,23 +97,11 @@ public class DnaGridBagLayout {
       // Layout manager
       GridBagLayout gbl = new GridBagLayout();
       this.setLayout(gbl);
-      
-      // Plain border
-      Border lineBorder = BorderFactory.createLineBorder(Color.black,2,false);
-      // Round border
-      Border roundedBorder = BorderFactory.createLineBorder(Color.RED, 2, true);
-      
-      // Etched Border
-      Border etchedBorder = BorderFactory.createEtchedBorder(Color.red, Color.blue);
-    
+      Border border = DnaBorderFactory.createGradientBorder(35,50,45,50);
 
-      // Matte Border
-      Border  matteBorder = BorderFactory.createMatteBorder(7, 7, 7, 7, Color.black);
       
-      // Compound Border (Composite Border - really cool)
-      Border compositeBorder = new CompoundBorder(lineBorder, new EmptyBorder(50,50,50,50));
       // Set the appropriate border
-      this.setBorder(matteBorder);
+      this.setBorder(border);
 
       // Constraints object for layout management
       GridBagConstraints gbc = new GridBagConstraints();  
@@ -134,7 +122,7 @@ public class DnaGridBagLayout {
       
       // The selected image file (using a label with setIcon)
       labelImg = new JLabel();
-      labelImg.setBorder(roundedBorder);
+      labelImg.setBorder(DnaBorderFactory.createGradientBorder(5,5,5,5));
       gbc.weighty = 1;
       gbc.weighty = 1;
       gbc.gridx = 0;
@@ -146,7 +134,7 @@ public class DnaGridBagLayout {
       fields = new JPanel();
       gbc.gridx = 0;
       gbc.gridy = 2;
-      fields.setBorder(roundedBorder);
+      fields.setBorder(DnaBorderFactory.createGradientBorder(0,5,0,5));
       red = new JTextField(4);
       green = new JTextField(3);
       blue = new JTextField(3);

@@ -93,3 +93,23 @@ https://www.javamex.com/tutorials/threads/invokelater.shtml
 
 
 */
+
+
+/*   
+
+  Examples of Borders
+
+   // Plain border
+      Border lineBorder = BorderFactory.createLineBorder(Color.black,2,false);
+      // Round border
+      Border roundedBorder = BorderFactory.createLineBorder(Color.black, 2, true);
+      // Etched Border
+      Border etchedBorder = BorderFactory.createEtchedBorder(Color.red, Color.blue);
+      // Matte Border
+      Border  matteBorder = BorderFactory.createMatteBorder(7, 7, 7, 7, Color.black);
+      // Compound Border (Composite Border - really cool)
+      Border compositeBorder = new CompoundBorder(lineBorder, new EmptyBorder(50,50,50,50));
+
+
+
+*/

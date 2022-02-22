@@ -15,6 +15,14 @@
         "version": 2237,
         "index": 179
       }
+    ],
+    "src/main/java/interfaces/DnaBorder.java": [
+      {
+        "id": "f42c856c-0ebf-40ef-b2e8-23c20ede51bb",
+        "line": 5,
+        "version": 251,
+        "index": 69
+      }
     ]
   }
 }
