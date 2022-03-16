@@ -14,7 +14,7 @@ public class DnaExecCommand
     List cmd = new ArrayList();
     cmd.add("/bin/bash");
     cmd.add("buildproject.sh");
-    cmd.add("java-mvn-start");
+    cmd.add("maven-starter");
   
     try
     {
