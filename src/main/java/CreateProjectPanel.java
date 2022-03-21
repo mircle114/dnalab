@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,32 +32,188 @@ import javax.swing.BorderFactory;
 import java.awt.Component;
 
 
-public class CreateProjectPanel extends JPanel
+public class CreateProjectPanel extends JPanel implements ActionListener
 {
+  // CONSTANTS
+  private final String BTN_CREATE_PROJECT_NAME = "btnCreateProject";
+
+  private Color originalBackground;
+  
+
+  // Components
+  private JTextField jtfModelVersion;
+  private JTextField jtfGroupId;
+  private JTextField jtfArtifactId;
+  private JTextField jtfVersion;
+  private JButton jbCreateProject;
+  
   public CreateProjectPanel()
   {
-    EventQueue.invokeLater(new Runnable() 
-    {
-      @Override
-      public void run() 
-      {
-        try 
-        {
-          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } 
-  catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-            | UnsupportedLookAndFeelException ex) 
-        {
-          ex.printStackTrace();
-        }
-
-        setLayout(new BorderLayout());
-        setAlignmentX(Component.LEFT_ALIGNMENT);
-        setBackground(Color.gray);
-        setBorder(DnaBorderFactory.createGradientBorder(2,2,2,2));
-        setPreferredSize(new Dimension(200,200));
-        setVisible(true);
-      }
-    });
+      setMavenProjectPropertiesPanel();
+      Common.setComponentToFixedDimension(this,new Dimension(300,150)); 
+      setVisible(true);
   }
+
+  private void setMavenProjectPropertiesPanel()
+  {                  
+      setBorder(DnaBorderFactory.createTitledBorder("Create project",1,2,1,2));
+      setLayout(new GridBagLayout());
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.weightx = 0;
+      gbc.weighty = 0;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.anchor = GridBagConstraints.SOUTH;
+
+      Dimension fixedSize =  new Dimension(125,23);
+    
+      JLabel jlModelVersion = new JLabel("modelVersion:");
+      add(jlModelVersion,gbc);       
+
+      gbc.gridx = 1;
+      jtfModelVersion = new JTextField("4.0.0");
+      jtfModelVersion.addFocusListener(new FocusListener() 
+      {
+            public void focusGained(FocusEvent e) 
+            {
+              jtfModelVersion.setBackground(Color.WHITE);
+            }
+
+            public void focusLost(FocusEvent e) 
+            {
+                
+            }
+      });
+      add(jtfModelVersion,gbc);
+      Common.setComponentToFixedDimension(jtfModelVersion,fixedSize); 
+
+      gbc.gridx = 0;
+      gbc.gridy = 1;
+      JLabel jlGroupId = new JLabel("groupId:");
+      add(jlGroupId,gbc);
+
+      gbc.gridx = 1;
+      jtfGroupId = new JTextField();
+      jtfGroupId.addFocusListener(new FocusListener() 
+      {
+            public void focusGained(FocusEvent e) 
+            {
+              jtfGroupId.setBackground(Color.WHITE);
+            }
+
+            public void focusLost(FocusEvent e) 
+            {
+                
+            }
+      });
+      add(jtfGroupId,gbc);
+      Common.setComponentToFixedDimension(jtfGroupId,fixedSize);
+      
+      gbc.gridx = 0;
+      gbc.gridy = 2;
+      JLabel jlArtifactId = new JLabel("artifactId:");
+      add(jlArtifactId,gbc);
+
+      gbc.gridx = 1;
+      jtfArtifactId = new JTextField();
+      jtfArtifactId.addFocusListener(new FocusListener() 
+      {
+            public void focusGained(FocusEvent e) 
+            {
+              jtfArtifactId.setBackground(Color.WHITE);
+            }
+
+            public void focusLost(FocusEvent e) 
+            {
+                
+            }
+      });
+      add(jtfArtifactId,gbc);
+      Common.setComponentToFixedDimension(jtfArtifactId,fixedSize);
+      
+      gbc.gridx = 0;
+      gbc.gridy = 3;
+      JLabel jlVersion = new JLabel("version:");
+      add(jlVersion,gbc);
+      
+      gbc.gridx = 1;
+      jtfVersion = new JTextField("1.0-SNAPSHOT");
+      jtfVersion.addFocusListener(new FocusListener() 
+      {
+            public void focusGained(FocusEvent e) 
+            {
+              jtfVersion.setBackground(Color.WHITE);
+            }
+
+            public void focusLost(FocusEvent e) 
+            {
+                
+            }
+      });
+      add(jtfVersion,gbc);
+      Common.setComponentToFixedDimension(jtfVersion,fixedSize);
+
+      gbc.gridx = 0;
+      gbc.gridy = 4;
+      jbCreateProject = new JButton("Create");
+      jbCreateProject.setName(BTN_CREATE_PROJECT_NAME);
+      add(jbCreateProject,gbc);
+      jbCreateProject.addActionListener(this);
+
+      gbc.fill = GridBagConstraints.NONE;
+
+      setVisible(true);
+  }
+
+   @Override
+    public void actionPerformed(ActionEvent e) 
+    {
+      String ctrlName = ((JButton)e.getSource()).getName();
+
+      // If the Create button triggered the event
+      if(ctrlName.equals(BTN_CREATE_PROJECT_NAME))
+      {
+        String errorValidationMessage = getCreateProjectValidationErrorMessage(); 
+       
+        if(errorValidationMessage != "")
+        {
+          System.out.println(errorValidationMessage);
+        }
+      }
+    }
+
+    private String getCreateProjectValidationErrorMessage()
+    {
+      String errMsg ="";
+      JTextField jtfWithError = new JTextField();
+      
+      if(jtfModelVersion.getText().equals(""))
+      {
+        jtfWithError = jtfModelVersion;
+        errMsg = "Missing Model Version";
+      }
+      else if(jtfGroupId.getText().equals(""))
+      {  
+        jtfWithError = jtfGroupId;
+        errMsg = "Missing Group Id";
+      }
+      else if(jtfArtifactId.getText().equals(""))
+      {
+        jtfWithError = jtfArtifactId;
+        errMsg = "Missing Artifact Id";
+      }
+      else if(jtfVersion.getText().equals(""))
+      {
+        jtfWithError = jtfVersion;
+        errMsg = "Missing Version";
+      }
+
+      if(jtfWithError != null)
+      {
+        jtfWithError.setBackground(new Color(255, 0, 0, 50));
+      }
+      return errMsg;
+    }
 }

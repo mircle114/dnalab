@@ -6,6 +6,8 @@ import java.lang.*;
 import java.util.stream.*;
 import java.util.function.Function;
 import java.text.DecimalFormat;
+import javax.swing.JComponent;
+import java.awt.Dimension;
 
 public class Common
 	{
@@ -69,6 +71,13 @@ public class Common
           return (char)(intToConvert + '0');
         }
 
-        
+        // GUI Helpers
+        public static void setComponentToFixedDimension(JComponent component, Dimension fixedDimension)
+        {
+            component.setSize(fixedDimension);
+            component.setPreferredSize(fixedDimension);
+            component.setMaximumSize(fixedDimension);
+            component.setMinimumSize(fixedDimension);
+        }
 	    
 	}

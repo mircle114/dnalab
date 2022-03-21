@@ -14,6 +14,11 @@ public class DnaBorderFactory
     {
         return new GradientBorder(top,left,bottom,right);
     }
+
+    public static Border createTitledBorder(String title,int top, int left, int bottom, int right)    
+    {
+      return BorderFactory.createTitledBorder(title);
+    }
     
    
 }
