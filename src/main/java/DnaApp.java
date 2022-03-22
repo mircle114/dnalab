@@ -37,6 +37,9 @@ public class DnaApp extends JPanel
       {
         controlPanel = new JPanel();
         controlPanel.setLayout(new GridBagLayout());
+        Common.setComponentToFixedDimension(controlPanel,new Dimension(500,250)); 
+
+        Common.setComponentPadding(controlPanel,20,0,0,0);
         
         GridBagConstraints gbc = new GridBagConstraints();  
         gbc.gridx = 0;
@@ -58,7 +61,7 @@ public class DnaApp extends JPanel
         rootFrame.setLayout(new BorderLayout());
         rootFrame.add(controlPanel,BorderLayout.NORTH);
         rootFrame.setBackground(Color.magenta);
-        rootFrame.setSize(400,250);
+        rootFrame.setSize(500,300);
         rootFrame.setVisible(true);  
         rootFrame.setDefaultCloseOperation(
         JFrame.EXIT_ON_CLOSE);

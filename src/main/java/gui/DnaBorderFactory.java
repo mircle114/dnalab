@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.border.*;
 import javax.swing.BorderFactory;
+import java.awt.Color;
 
 public class DnaBorderFactory
 {
@@ -15,9 +16,13 @@ public class DnaBorderFactory
         return new GradientBorder(top,left,bottom,right);
     }
 
-    public static Border createTitledBorder(String title,int top, int left, int bottom, int right)    
+    public static Border createTitledBorder(String title, boolean rounded,int diameter)    
     {
-      return BorderFactory.createTitledBorder(title);
+     LineBorder roundedLineBorder = 
+       new LineBorder(Color.BLACK, diameter, rounded);
+      TitledBorder roundedTitledBorder = new TitledBorder(roundedLineBorder, title);
+      
+      return roundedTitledBorder;
     }
     
    

@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.text.DecimalFormat;
 import javax.swing.JComponent;
 import java.awt.Dimension;
+import javax.swing.border.*;
 
 public class Common
 	{
@@ -79,5 +80,11 @@ public class Common
             component.setMaximumSize(fixedDimension);
             component.setMinimumSize(fixedDimension);
         }
-	    
+
+        public static void setComponentPadding(JComponent component,int top, int left, int bottom, int right )
+    {
+        Border currentBorder = component.getBorder();
+        Border emptyBorder = new EmptyBorder(top,left,bottom,right);
+        component.setBorder(new CompoundBorder(currentBorder,emptyBorder));
+    }
 	}

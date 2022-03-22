@@ -2,6 +2,8 @@ package com.dnavault;
 
 import javax.swing.*;
 import java.awt.Insets;
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -38,6 +40,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
   private final String BTN_CREATE_PROJECT_NAME = "btnCreateProject";
 
   private Color originalBackground;
+  protected JProgressBar progressBar;
   
 
   // Components
@@ -50,13 +53,13 @@ public class CreateProjectPanel extends JPanel implements ActionListener
   public CreateProjectPanel()
   {
       setMavenProjectPropertiesPanel();
-      Common.setComponentToFixedDimension(this,new Dimension(300,150)); 
+      //Common.setComponentToFixedDimension(this,new Dimension(300,200)); 
       setVisible(true);
   }
 
   private void setMavenProjectPropertiesPanel()
   {                  
-      setBorder(DnaBorderFactory.createTitledBorder("Create project",1,2,1,2));
+      setBorder(DnaBorderFactory.createTitledBorder("Create project",true,3));
       setLayout(new GridBagLayout());
 
       GridBagConstraints gbc = new GridBagConstraints();
@@ -67,7 +70,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       gbc.fill = GridBagConstraints.HORIZONTAL;
       gbc.anchor = GridBagConstraints.SOUTH;
 
-      Dimension fixedSize =  new Dimension(125,23);
+      Dimension fixedSize =  new Dimension(150,23);
     
       JLabel jlModelVersion = new JLabel("modelVersion:");
       add(jlModelVersion,gbc);       
@@ -122,7 +125,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       {
             public void focusGained(FocusEvent e) 
             {
-              jtfArtifactId.setBackground(Color.WHITE);
+                jtfArtifactId.setBackground(Color.WHITE);
             }
 
             public void focusLost(FocusEvent e) 
@@ -162,8 +165,13 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       add(jbCreateProject,gbc);
       jbCreateProject.addActionListener(this);
 
-      gbc.fill = GridBagConstraints.NONE;
-
+      gbc.gridx = 1;
+      gbc.gridy = 5;
+ 
+      progressBar = new JProgressBar(0, 100);
+      progressBar.setVisible(false);
+      add(progressBar,gbc);
+    
       setVisible(true);
   }
 
@@ -180,10 +188,29 @@ public class CreateProjectPanel extends JPanel implements ActionListener
         if(errorValidationMessage != "")
         {
           System.out.println(errorValidationMessage);
+          return;
         }
+
+        // Otherwise all is valid on the form
+        createProject();
+        
       }
     }
 
+    private void createProject()
+    {
+          List cmd = new ArrayList();
+          cmd.add("/bin/bash");
+          cmd.add("buildproject.sh");
+          cmd.add(jtfGroupId.getText());
+          cmd.add(jtfArtifactId.getText());
+          DnaExecCommand.runCommand(cmd);
+          progressBar.setVisible(true);
+          progressBar.setValue(0);
+          progressBar.setStringPainted(true);
+          
+    }
+  
     private String getCreateProjectValidationErrorMessage()
     {
       String errMsg ="";

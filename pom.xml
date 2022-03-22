@@ -8,7 +8,7 @@
   <artifactId>app</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>java-app</name>
+  <name>app</name>
   <!-- HERE -->
   <url>http://www.dnavault.com</url>
 

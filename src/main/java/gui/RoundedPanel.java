@@ -8,11 +8,12 @@ import java.awt.BasicStroke;
 import java.awt.RenderingHints;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.border.*;
 
 public class RoundedPanel extends JPanel 
 {
     /** Stroke size. it is recommended to set it to 1 for better view */
-    protected int strokeSize = 1;
+    protected int strokeSize = 2;
     /** Color of shadow */
     protected Color shadowColor = Color.black;
     /** Sets if it drops shadow */
@@ -20,13 +21,13 @@ public class RoundedPanel extends JPanel
     /** Sets if it has an High Quality view */
     protected boolean highQuality = true;
     /** Double values for Horizontal and Vertical radius of corner arcs */
-    protected Dimension arcs = new Dimension(20, 20);
+    protected Dimension arcs = new Dimension(45, 35);
     /** Distance between shadow border and opaque panel border */
     protected int shadowGap = 5;
     /** The offset of shadow.  */
-    protected int shadowOffset = 4;
+    protected int shadowOffset = 5;
     /** The transparency value of shadow. ( 0 - 255) */
-    protected int shadowAlpha = 150;
+    protected int shadowAlpha = 125;
 
 	//FOLLOWING CODES GOES HERE
 
@@ -34,15 +35,16 @@ public class RoundedPanel extends JPanel
     {
        super();
        setOpaque(false);
-       
+      Common.setComponentPadding(this,8,8,8,8);
     }
 
     @Override
    protected void paintComponent(Graphics g) 
   {
        super.paintComponent(g);
+      
       // Set to force a fixed size no matter if size changes 
-      Common.setComponentToFixedDimension(this,new Dimension(325,175));  
+      //Common.setComponentToFixedDimension(this,new Dimension(400,225));  
     
        int width = getWidth();
        int height = getHeight();
@@ -76,14 +78,20 @@ public class RoundedPanel extends JPanel
 
        //Draws the rounded opaque panel with borders.
        graphics.setColor(getBackground());
-       graphics.fillRoundRect(0, 0, width - shadowGap,
+       
+      graphics.fillRoundRect(0, 0, width - shadowGap,
        height - shadowGap, arcs.width, arcs.height);
-       graphics.setColor(getForeground());
-       graphics.setStroke(new BasicStroke(strokeSize));
-       graphics.drawRoundRect(0, 0, width - shadowGap,
+      
+      graphics.setColor(getForeground());
+      
+      graphics.setStroke(new BasicStroke(strokeSize));
+       
+      graphics.drawRoundRect(0, 0, width - shadowGap,
        height - shadowGap, arcs.width, arcs.height);
 
        //Sets strokes to default, is better.
        graphics.setStroke(new BasicStroke());
+
+      
    }
 }
