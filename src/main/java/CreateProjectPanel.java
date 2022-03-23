@@ -98,7 +98,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       add(jlGroupId,gbc);
 
       gbc.gridx = 1;
-      jtfGroupId = new JTextField();
+      jtfGroupId = new JTextField("com.dnvault");
       jtfGroupId.addFocusListener(new FocusListener() 
       {
             public void focusGained(FocusEvent e) 
@@ -120,7 +120,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       add(jlArtifactId,gbc);
 
       gbc.gridx = 1;
-      jtfArtifactId = new JTextField();
+      jtfArtifactId = new JTextField("maven-quickstart");
       jtfArtifactId.addFocusListener(new FocusListener() 
       {
             public void focusGained(FocusEvent e) 

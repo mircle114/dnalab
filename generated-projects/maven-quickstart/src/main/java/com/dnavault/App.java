@@ -1,9 +1,13 @@
 package com.dnavault;
 
+/**
+ * Hello world!
+ *
+ */
 public class App 
 {
     public static void main( String[] args )
     {
-      new StarterForm();
+        System.out.println( "Hello World!" );
     }
 }

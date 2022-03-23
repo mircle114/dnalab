@@ -1,27 +1,34 @@
-cd $MyHome
+cd $TargetDir
 
+#<<'EXEMPT' 
 if [ -d "$2" ]; then rm -Rf $2; fi
 
+echo 'Maven - Generating: '$2
 mvn archetype:generate -DgroupId=$1 -DartifactId=$2 -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
 echo 'Project generation complete'
 echo 'Start compile...'
+#EXEMPT
+
+groupId="$1"
+artifactId="$2"
+forwardSlash="/"
+convertedGroupId=$(echo "${groupId/./"$forwardSlash"}")
 
 # Into the new app folder
+echo 'Change dir to '$2
 cd $2
 
 # Some clean up and config
 if [ -d "src/test" ]; then rm -Rf "src/test"; fi
 
-cp $DnaTemplatesDir/App.java src/main/java/app/App.java
-cp $DnaTemplatesDir/StarterForm.java src/main/java/app/StarterForm.java
-cp $DnaTemplatesDir/pom.dat src/main/java/app/pom.xml
+cp $TemplatesDir/App.java $TargetDir/$2/src/main/java/$convertedGroupId/App.java
+cp $TemplatesDir/StarterForm.java $TargetDir/$2/src/main/java/$convertedGroupId/StarterForm.java
 
+echo 'Starting maven install goal...'
 mvn install
 
-echo 'Running jar file...' 
+echo 'Running jar file... cd in target' 
 cd target
-#java -jar $1'-1.0-SNAPSHOT.jar'
-java -cp $2'-1.0-SNAPSHOT.jar' App
+java -cp $2'-1.0-SNAPSHOT.jar' $1.App
 echo 'Task Completed'
 
-#javac -d $1/classes/ $(find $1/src/main -name '*.java') && java -classpath $1/classes/ com.mycompany.app.App
