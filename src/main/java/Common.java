@@ -7,6 +7,7 @@ import java.util.stream.*;
 import java.util.function.Function;
 import java.text.DecimalFormat;
 import javax.swing.JComponent;
+import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.border.*;
 
@@ -73,7 +74,7 @@ public class Common
         }
 
         // GUI Helpers
-        public static void setComponentToFixedDimension(JComponent component, Dimension fixedDimension)
+        public static void setControlFixedSize(Component component, Dimension fixedDimension)
         {
             component.setSize(fixedDimension);
             component.setPreferredSize(fixedDimension);

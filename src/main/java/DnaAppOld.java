@@ -22,58 +22,70 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.Container;
 
-public class DnaApp extends JPanel
+public class DnaAppOld extends JFrame
 {
-  private static JFrame rootFrame;
+  //private static JFrame rootFrame;
   private static JPanel controlPanel;
   private static GridBagConstraints gbc;
   
-  public DnaApp()
+  public DnaAppOld()
   {
     EventQueue.invokeLater(new Runnable() 
     {
       @Override
       public void run() 
       {
-        controlPanel = new JPanel();
+       /* controlPanel = new JPanel();
         controlPanel.setLayout(new GridBagLayout());
         Common.setComponentToFixedDimension(controlPanel,new Dimension(500,250)); 
 
         Common.setComponentPadding(controlPanel,20,0,0,0);
-        
+        */
         GridBagConstraints gbc = new GridBagConstraints();  
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0;
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;  
+        gbc.anchor = GridBagConstraints.NORTHEAST;  
 
         // The Maven min props to generate maven project
-        JPanel jpProjectPanel = new CreateProjectPanel();
-        RoundedPanel roundedPanel = new RoundedPanel();
-        roundedPanel.add(jpProjectPanel);
-        controlPanel.add(roundedPanel,gbc);
+   //     JPanel jpProjectPanel = new CreateProjectPanel();
+     //   RoundedPanel roundedPanel = new RoundedPanel();
+  
+       // roundedPanel.add(jpProjectPanel,gbc);
+        //controlPanel.add(roundedPanel,gbc);
         
          // The ROOT frame for the entire app
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        rootFrame = new JFrame("DNA | PIPELINE");
-        rootFrame.setLayout(new BorderLayout());
-        rootFrame.add(controlPanel,BorderLayout.NORTH);
-        rootFrame.setBackground(Color.magenta);
-        rootFrame.setSize(500,300);
-        rootFrame.setVisible(true);  
-        rootFrame.setDefaultCloseOperation(
+        //JFrame.setDefaultLookAndFeelDecorated(true);
+        //rootFrame = new JFrame("DNA | PIPELINE");
+       /* setTitle("DNA|Pipeline");
+        //rootFrame.setLayout(new BorderLayout());
+        //setLayout(null);
+        setLocationRelativeTo(null);
+        JMenuBar jmb = new MyMenu();
+        add(jmb);
+        setJMenuBar(jmb); 
+        //rootFrame.add(controlPanel,BorderLayout.EAST);
+        //setBackground(Color.magenta);
+        Dimension fixedDimension = new Dimension(500,300);
+        //setSize(fixedDimension);
+        //setPreferredSize(fixedDimension);
+        setMaximumSize(fixedDimension);
+        setMinimumSize(fixedDimension);
+        // Common.setComponentToFixedDimension (this,new Dimension(500,300)); 
+        setVisible(true);  
+        setDefaultCloseOperation(
         JFrame.EXIT_ON_CLOSE);
     
-        rootFrame.pack();
+        pack();*/
       }
     });
   }
    
   public static void main(String[] args) 
 	{
-    new DnaApp();
+    new DnaAppOld();
 	}
 }
 

@@ -90,7 +90,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
             }
       });
       add(jtfModelVersion,gbc);
-      Common.setComponentToFixedDimension(jtfModelVersion,fixedSize); 
+      Common.setControlFixedSize(jtfModelVersion,fixedSize); 
 
       gbc.gridx = 0;
       gbc.gridy = 1;
@@ -98,7 +98,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
       add(jlGroupId,gbc);
 
       gbc.gridx = 1;
-      jtfGroupId = new JTextField("com.dnvault");
+      jtfGroupId = new JTextField("com.dnavault");
       jtfGroupId.addFocusListener(new FocusListener() 
       {
             public void focusGained(FocusEvent e) 
@@ -112,7 +112,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
             }
       });
       add(jtfGroupId,gbc);
-      Common.setComponentToFixedDimension(jtfGroupId,fixedSize);
+      Common.setControlFixedSize(jtfGroupId,fixedSize);
       
       gbc.gridx = 0;
       gbc.gridy = 2;
@@ -134,7 +134,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
             }
       });
       add(jtfArtifactId,gbc);
-      Common.setComponentToFixedDimension(jtfArtifactId,fixedSize);
+      Common.setControlFixedSize(jtfArtifactId,fixedSize);
       
       gbc.gridx = 0;
       gbc.gridy = 3;
@@ -156,7 +156,7 @@ public class CreateProjectPanel extends JPanel implements ActionListener
             }
       });
       add(jtfVersion,gbc);
-      Common.setComponentToFixedDimension(jtfVersion,fixedSize);
+      Common.setControlFixedSize(jtfVersion,fixedSize);
 
       gbc.gridx = 0;
       gbc.gridy = 4;
